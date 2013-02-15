@@ -1,0 +1,81 @@
+                                         
+ .oPYo.             8   o    o                                         8 
+ 8   `8             8   8b   8                                         8 
+o8YooP' .oPYo. .oPYo8   8`b  8 .oPYo. o    o oPYo. .oPYo. odYo. .oPYo. 8 
+ 8   `b 8oooo8 8    8   8 `b 8 8oooo8 8    8 8  `' 8    8 8' `8 .oooo8 8 
+ 8    8 8.     8    8   8  `b8 8.     8    8 8     8    8 8   8 8    8 8 
+ 8    8 `Yooo' `YooP'   8   `8 `Yooo' `YooP' 8     `YooP' 8   8 `YooP8 8 
+:..:::..:.....::.....:::..:::..:.....::.....:..:::::.....:..::..:.....:..
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Trabajo de Redes Neuronales para reconocimiento de Personas, Gestos, Posturas y Ojos:
+Alfonso Pérez-Embid Atalaya.
+                                
+        
+Documentación:
+
+- Proceso de obtención del conjunto de entrenamiento.
+	
+	- tomar_foto.sh, hace uso de camdesk.py (widget para poner la webcam en el escritorio) y te
+	va pidiendo que te pongas de una postura u otra para hacer las fotos (f3 sobre el widget para 
+	hacer la foto y ENTER sobre el bash para guardarla con un nombre determinado)
+
+- Distintas posibilidades intentadas, en cuanto a estructura de la red (número de capas ocultas, número de unidades en cada capa, etc.)
+
+	- Aunque lo tengo hecho de manera genérica para n capas ocultas, no me ha dado especialmente
+	buenos resultados con más de 1 capa oculta por lo que no es algo que en mi engendro aleatorice
+	Las posibilidades se prueban de forma automática mediante el "engendro" -> engendro.py
+	que es un bucle que va por encima del algoritmo backpropagation probando valores aleatorios
+	y serializando aquellas redes que encuentra que superan el error cuadrático
+	
+
+- Resultados según los distintos algoritmos de entrenamiento (regla delta, retropropagación, momentum)
+
+	- La verdad que sin el momentum implementado me daba unos errores bastante malos, y la red
+	no era capaz de clasificar nada bien las entradas (ni para el XOR).
+	
+- Estructura de datos usada para representar una red neuronal.
+
+	Arquitectura:
+	
+	- Está orientado a objetos, está el tipo neurona, el tipo capa y el tipo red, definido
+	en neurona.py, capa.py, y red.py respectivamente
+	
+	- En faux.py se encuentra la función que abre una foto y obtiene el conjunto de entrenamiento
+	
+	- Las fotos para el entrenamiento están sobre fotos/, y aquellas para la batería de prueba
+	están sobre test/
+
+
+- Generación de los pesos iniciales, factores de aprendizaje,...
+
+	- Eso se hace en el constructor de la neurona, de forma aleatoria entre -0.5 y 0.5
+	
+Distintos criterios de parada.
+
+	- Tengo 2 criterios de parada, uno es cuando super el error cuadrático una cota
+	(está hardcodeada a 0.05) y otro es cuando el número de iteraciones fallidas (iteraciones
+	sin superar el mejor error cuadrático supera un MAX_ITERACIONES)
+
+                       
+Explicación:
+
+
+Redes Neuronales:
+
+	Nociones básicas:
+	
+	- Las redes neuronales entrenadas se encuentran bajo el directorio redes/
+	- Para testear una red neuronal: python3.2 red-{TIPO}.py redes/{TIPO}/{RED} 
+	  por ejemplo: red-posturas.py redes/posturas/red_posturas
+	  Y seguir las instrucciones
+	- Para entrenar una red, tenemos 2 opciones, entrenar desde 0 (opción 1) o seguir entrenando
+	(opción 3). La opción 3 abre la red, y discrimina aquellas que encuentren que no superen al
+	error cuadrático de la red cargada
+	  
+	  
+Demás comentarios:
+
+	- En comentarios en cada archivo.
+	

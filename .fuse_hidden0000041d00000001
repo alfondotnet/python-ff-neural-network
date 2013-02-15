@@ -1,0 +1,36 @@
+#!/bin/bash
+
+echo "[[[[[[[ TRAINING SET CONSTRUCTOR v1.50 by fonaer1 ]]]]]]]]]"\n\n
+echo "ABRIENDO WEBCAM"
+
+python2.7 camdesk.py &
+PID=$!
+
+
+echo "Quien eres?: "
+read persona
+
+kill $PID
+
+echo "Posicion cara (frente,arriba,abajo): "
+read posicion
+
+echo "ojos (abiertos,cerrados,gafas): "
+read ojos
+
+echo "Gesto (sonriendo,serio,lengua): "
+read gesto
+
+echo "FOTO (foto/test): "
+read foto
+
+echo "AHORA PONTE BIEN, RECUERDA LAS POSTURAS y DALE AL ENTER!!!"
+read aaa
+
+
+vlc -I dummy v4l2:///dev/video0 --video-filter scene --no-audio --scene-path . --scene-prefix a --scene-format png vlc://quit --run-time=1
+convert a00001.png -resize 30x30 -colorspace gray -compress none -rotate 180 -depth 8 foto.pgm
+
+
+rm a00001.png
+mv foto.pgm $foto/$persona-$posicion-$ojos-$gesto.pgm
