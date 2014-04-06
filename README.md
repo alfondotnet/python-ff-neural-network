@@ -1,4 +1,4 @@
-Academic
+Face Pattern Recognition using simple FF-Neuronal Networks with momentum
 ==============
 
 Some things I have recently done academically speaking.
